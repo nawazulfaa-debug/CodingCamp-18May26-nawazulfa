@@ -1,0 +1,687 @@
+/* ============================================================
+   UNDANGAN ONLINE — style.css
+   Satu file CSS untuk seluruh aplikasi
+   ============================================================ */
+
+/* ── 1. CSS Custom Properties (tema) ── */
+:root {
+  /* Light theme */
+  --bg-page:        #f0f4f8;
+  --bg-card:        #ffffff;
+  --bg-card-hover:  #f7fafc;
+  --bg-input:       #f0f4f8;
+  --bg-header:      #ffffff;
+
+  --text-primary:   #1a202c;
+  --text-secondary: #4a5568;
+  --text-muted:     #a0aec0;
+  --text-on-accent: #ffffff;
+
+  --accent:         #6c63ff;
+  --accent-hover:   #574fd6;
+  --accent-light:   #ede9ff;
+
+  --success:        #38a169;
+  --success-light:  #c6f6d5;
+  --danger:         #e53e3e;
+  --danger-light:   #fed7d7;
+  --warning:        #d69e2e;
+  --warning-light:  #fefcbf;
+
+  --border:         #e2e8f0;
+  --shadow-sm:      0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:      0 4px 16px rgba(0,0,0,.10);
+  --shadow-lg:      0 8px 32px rgba(0,0,0,.14);
+
+  --radius-sm:      6px;
+  --radius-md:      12px;
+  --radius-lg:      18px;
+  --radius-full:    9999px;
+
+  --font-sans:      'Segoe UI', system-ui, -apple-system, sans-serif;
+  --transition:     .2s ease;
+}
+
+[data-theme="dark"] {
+  --bg-page:        #0f1117;
+  --bg-card:        #1a1d27;
+  --bg-card-hover:  #22263a;
+  --bg-input:       #22263a;
+  --bg-header:      #1a1d27;
+
+  --text-primary:   #e2e8f0;
+  --text-secondary: #a0aec0;
+  --text-muted:     #4a5568;
+  --text-on-accent: #ffffff;
+
+  --accent:         #7c73ff;
+  --accent-hover:   #6c63ff;
+  --accent-light:   #2d2b4e;
+
+  --success:        #48bb78;
+  --success-light:  #1c3a2a;
+  --danger:         #fc8181;
+  --danger-light:   #3b1a1a;
+  --warning:        #f6e05e;
+  --warning-light:  #3b3010;
+
+  --border:         #2d3748;
+  --shadow-sm:      0 1px 3px rgba(0,0,0,.3);
+  --shadow-md:      0 4px 16px rgba(0,0,0,.4);
+  --shadow-lg:      0 8px 32px rgba(0,0,0,.5);
+}
+
+/* ── 2. Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+  line-height: 1.6;
+}
+
+img { max-width: 100%; display: block; }
+button { cursor: pointer; font-family: inherit; }
+input, textarea, select { font-family: inherit; }
+ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+
+/* ── 3. Header ── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .75rem 1.5rem;
+  transition: background var(--transition);
+}
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.header__logo { font-size: 1.4rem; }
+
+.header__title strong { color: var(--accent); }
+
+.header__actions { display: flex; gap: .5rem; }
+
+/* ── 4. Main Layout ── */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── 5. Grid ── */
+.grid { display: grid; gap: 1.25rem; }
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+
+@media (max-width: 768px) {
+  .grid--2 { grid-template-columns: 1fr; }
+}
+
+/* ── 6. Card ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+/* ── 7. Greeting Card ── */
+.card--greeting {
+  background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%);
+  color: var(--text-on-accent);
+  border: none;
+}
+
+.card--greeting .card__title,
+.card--greeting .greeting__text,
+.card--greeting .greeting__name,
+.card--greeting .greeting__date,
+.card--greeting .greeting__time { color: var(--text-on-accent); }
+
+.greeting__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.greeting__text {
+  font-size: .9rem;
+  opacity: .85;
+  margin-bottom: .15rem;
+}
+
+.greeting__name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.greeting__datetime {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+
+.greeting__date {
+  font-size: .85rem;
+  opacity: .8;
+}
+
+.greeting__time {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  line-height: 1;
+}
+
+/* ── 8. Pomodoro Card ── */
+.pomodoro__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .75rem;
+}
+
+.pomodoro__display {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--accent);
+  letter-spacing: .04em;
+  margin: .5rem 0 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pomodoro__controls {
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pomodoro__status {
+  text-align: center;
+  font-size: .8rem;
+  color: var(--text-muted);
+  margin-top: .75rem;
+}
+
+/* ── 9. To-Do Card ── */
+.todo__form {
+  display: flex;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+
+.todo__form .input { flex: 1; }
+
+.todo__list { display: flex; flex-direction: column; gap: .5rem; }
+
+.todo__item {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .6rem .75rem;
+  background: var(--bg-input);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+.todo__item:hover { background: var(--bg-card-hover); }
+
+.todo__check {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.todo__text {
+  flex: 1;
+  font-size: .9rem;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.todo__text--done {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.todo__actions { display: flex; gap: .3rem; flex-shrink: 0; }
+
+/* ── 10. Quick Links Card ── */
+.link__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .link__form { grid-template-columns: 1fr; }
+}
+
+.link__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.link__item {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .4rem .8rem;
+  background: var(--accent-light);
+  color: var(--accent);
+  border-radius: var(--radius-full);
+  font-size: .85rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: background var(--transition), transform var(--transition);
+  max-width: 200px;
+}
+
+.link__item:hover {
+  background: var(--accent);
+  color: var(--text-on-accent);
+  transform: translateY(-1px);
+}
+
+.link__item a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 120px;
+}
+
+.link__delete {
+  background: none;
+  border: none;
+  font-size: .75rem;
+  opacity: .6;
+  padding: 0;
+  line-height: 1;
+  transition: opacity var(--transition);
+}
+
+.link__delete:hover { opacity: 1; }
+
+/* ── 11. Catalog ── */
+.card--catalog { padding-bottom: 2rem; }
+
+.catalog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-bottom: 1.25rem;
+}
+
+.catalog__filters {
+  display: flex;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Catalog Item Card */
+.catalog__item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog__item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.catalog__thumb {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  background: var(--accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.catalog__thumb--placeholder {
+  background: linear-gradient(135deg, var(--accent-light), var(--bg-input));
+}
+
+.catalog__body {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.catalog__badge {
+  display: inline-block;
+  padding: .15rem .6rem;
+  border-radius: var(--radius-full);
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  background: var(--accent-light);
+  color: var(--accent);
+  width: fit-content;
+}
+
+.catalog__name {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.catalog__desc {
+  font-size: .8rem;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.catalog__price {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.catalog__footer {
+  padding: .75rem 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ── 12. Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  padding: .5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: .875rem;
+  font-weight: 600;
+  border: 2px solid transparent;
+  transition: background var(--transition), color var(--transition),
+              border-color var(--transition), transform var(--transition),
+              opacity var(--transition);
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(.97); }
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--text-on-accent);
+}
+.btn--primary:hover { background: var(--accent-hover); }
+
+.btn--secondary {
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+.btn--secondary:hover { background: var(--border); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+.btn--ghost:hover { background: var(--bg-input); color: var(--text-primary); }
+
+.btn--danger {
+  background: var(--danger-light);
+  color: var(--danger);
+}
+.btn--danger:hover { background: var(--danger); color: #fff; }
+
+.btn--success {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.btn--icon {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  padding: .4rem;
+  border-radius: var(--radius-sm);
+}
+.btn--icon:hover { background: var(--bg-input); }
+
+.btn--sm { padding: .35rem .7rem; font-size: .8rem; }
+
+.btn--filter {
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  border-color: var(--border);
+  border-radius: var(--radius-full);
+  padding: .3rem .85rem;
+  font-size: .8rem;
+}
+.btn--filter:hover,
+.btn--filter.active {
+  background: var(--accent);
+  color: var(--text-on-accent);
+  border-color: var(--accent);
+}
+
+.btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── 13. Input ── */
+.input {
+  width: 100%;
+  padding: .55rem .85rem;
+  background: var(--bg-input);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: .875rem;
+  transition: border-color var(--transition), background var(--transition);
+  outline: none;
+}
+
+.input:focus { border-color: var(--accent); background: var(--bg-card); }
+.input::placeholder { color: var(--text-muted); }
+
+.input--textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.label {
+  display: block;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: .3rem;
+}
+
+/* ── 14. Modal ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  backdrop-filter: blur(3px);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.overlay.active { opacity: 1; pointer-events: all; }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.modal.active { opacity: 1; pointer-events: all; }
+
+.modal__box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(10px);
+  transition: transform var(--transition);
+}
+
+.modal.active .modal__box { transform: translateY(0); }
+
+.modal__box--wide { max-width: 560px; }
+
+.modal__box--center { align-items: center; text-align: center; }
+
+.modal__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.modal__actions {
+  display: flex;
+  gap: .5rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ── 15. Order Form ── */
+.order__preview {
+  background: var(--accent-light);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.order__preview-emoji { font-size: 2.5rem; }
+
+.order__preview-info { flex: 1; }
+
+.order__preview-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.order__preview-price {
+  font-size: .9rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.order__form { display: flex; flex-direction: column; gap: .75rem; }
+
+.form__row { display: flex; flex-direction: column; }
+
+/* ── 16. Success Modal ── */
+.success__icon { font-size: 3.5rem; }
+
+.success__msg {
+  font-size: .9rem;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ── 17. Empty State ── */
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: .85rem;
+  padding: 1rem 0;
+}
+
+/* ── 18. Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ── 19. Utility ── */
+.hidden { display: none !important; }
+
+/* ── 20. Responsive tweaks ── */
+@media (max-width: 480px) {
+  .main { padding: 1rem .75rem; }
+  .card { padding: 1.1rem; }
+  .pomodoro__display { font-size: 2.8rem; }
+  .greeting__time { font-size: 1.8rem; }
+  .catalog__header { flex-direction: column; align-items: flex-start; }
+  .todo__form { flex-direction: column; }
+  .modal__box { padding: 1.25rem; }
+}

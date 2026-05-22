@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Online — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header__brand">
+      <span class="header__logo">✉️</span>
+      <span class="header__title">Undangan<strong>Online</strong></span>
+    </div>
+    <div class="header__actions">
+      <button id="btnTheme" class="btn btn--icon" title="Ganti tema" aria-label="Toggle tema">🌙</button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+
+    <!-- ROW 1: Greeting + Pomodoro -->
+    <section class="grid grid--2">
+
+      <!-- Greeting Card -->
+      <div class="card card--greeting">
+        <div class="greeting__top">
+          <div>
+            <p id="greetingText" class="greeting__text">Selamat Pagi</p>
+            <h2 id="greetingName" class="greeting__name">Pengguna</h2>
+          </div>
+          <button id="btnEditName" class="btn btn--ghost btn--sm" title="Ubah nama">✏️ Ubah Nama</button>
+        </div>
+        <div class="greeting__datetime">
+          <span id="greetingDate" class="greeting__date"></span>
+          <span id="greetingTime" class="greeting__time"></span>
+        </div>
+      </div>
+
+      <!-- Pomodoro Card -->
+      <div class="card card--pomodoro">
+        <div class="pomodoro__header">
+          <h3 class="card__title">⏱ Focus Timer</h3>
+          <button id="btnEditPomodoro" class="btn btn--ghost btn--sm" title="Ubah durasi">⚙️ Durasi</button>
+        </div>
+        <div id="pomodoroDisplay" class="pomodoro__display">25:00</div>
+        <div class="pomodoro__controls">
+          <button id="btnPomStart" class="btn btn--primary">▶ Start</button>
+          <button id="btnPomStop"  class="btn btn--secondary" disabled>⏸ Stop</button>
+          <button id="btnPomReset" class="btn btn--ghost">↺ Reset</button>
+        </div>
+        <p id="pomodoroStatus" class="pomodoro__status">Siap memulai sesi fokus</p>
+      </div>
+
+    </section>
+
+    <!-- ROW 2: To-Do List + Quick Links -->
+    <section class="grid grid--2">
+
+      <!-- To-Do Card -->
+      <div class="card card--todo">
+        <h3 class="card__title">📝 To-Do List</h3>
+        <form id="todoForm" class="todo__form">
+          <input id="todoInput" type="text" class="input" placeholder="Tambah tugas baru…" autocomplete="off" />
+          <button type="submit" class="btn btn--primary btn--sm">+ Tambah</button>
+        </form>
+        <ul id="todoList" class="todo__list"></ul>
+        <p id="todoEmpty" class="empty-state">Belum ada tugas. Yuk tambahkan! 🎉</p>
+      </div>
+
+      <!-- Quick Links Card -->
+      <div class="card card--links">
+        <h3 class="card__title">🔗 Quick Links</h3>
+        <form id="linkForm" class="link__form">
+          <input id="linkName" type="text"  class="input" placeholder="Nama link…" autocomplete="off" />
+          <input id="linkUrl"  type="url"   class="input" placeholder="https://…"  autocomplete="off" />
+          <button type="submit" class="btn btn--primary btn--sm">+ Tambah</button>
+        </form>
+        <div id="linkList" class="link__list"></div>
+        <p id="linkEmpty" class="empty-state">Belum ada link. Tambahkan website favoritmu! 🌐</p>
+      </div>
+
+    </section>
+
+    <!-- ROW 3: Katalog Undangan -->
+    <section class="card card--catalog">
+      <div class="catalog__header">
+        <h3 class="card__title">💌 Katalog Undangan</h3>
+        <div class="catalog__filters">
+          <button class="btn btn--filter active" data-filter="all">Semua</button>
+          <button class="btn btn--filter" data-filter="pernikahan">Pernikahan</button>
+          <button class="btn btn--filter" data-filter="ulang-tahun">Ulang Tahun</button>
+          <button class="btn btn--filter" data-filter="khitanan">Khitanan</button>
+          <button class="btn btn--filter" data-filter="wisuda">Wisuda</button>
+        </div>
+      </div>
+      <div id="catalogGrid" class="catalog__grid"></div>
+    </section>
+
+  </main>
+
+  <!-- ===== MODALS ===== -->
+
+  <!-- Modal: Edit Nama -->
+  <div id="modalName" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalNameTitle">
+    <div class="modal__box">
+      <h4 id="modalNameTitle" class="modal__title">Ubah Nama Sapaan</h4>
+      <input id="inputName" type="text" class="input" placeholder="Masukkan namamu…" />
+      <div class="modal__actions">
+        <button id="btnSaveName"   class="btn btn--primary">Simpan</button>
+        <button id="btnCancelName" class="btn btn--ghost"   data-close="modalName">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Durasi Pomodoro -->
+  <div id="modalPomodoro" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalPomTitle">
+    <div class="modal__box">
+      <h4 id="modalPomTitle" class="modal__title">Ubah Durasi Pomodoro</h4>
+      <label class="label" for="inputPomDuration">Durasi (menit)</label>
+      <input id="inputPomDuration" type="number" class="input" min="1" max="120" value="25" />
+      <div class="modal__actions">
+        <button id="btnSavePomodoro"   class="btn btn--primary">Simpan</button>
+        <button id="btnCancelPomodoro" class="btn btn--ghost"   data-close="modalPomodoro">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit To-Do -->
+  <div id="modalTodo" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTodoTitle">
+    <div class="modal__box">
+      <h4 id="modalTodoTitle" class="modal__title">Edit Tugas</h4>
+      <input id="inputTodoEdit" type="text" class="input" placeholder="Nama tugas…" />
+      <div class="modal__actions">
+        <button id="btnSaveTodo"   class="btn btn--primary">Simpan</button>
+        <button id="btnCancelTodo" class="btn btn--ghost"   data-close="modalTodo">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Detail Katalog / Pesan -->
+  <div id="modalOrder" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalOrderTitle">
+    <div class="modal__box modal__box--wide">
+      <h4 id="modalOrderTitle" class="modal__title">Pesan Undangan</h4>
+      <div id="orderPreview" class="order__preview"></div>
+      <form id="orderForm" class="order__form">
+        <div class="form__row">
+          <label class="label" for="orderName">Nama Pemesan</label>
+          <input id="orderName" type="text" class="input" placeholder="Nama lengkap…" required />
+        </div>
+        <div class="form__row">
+          <label class="label" for="orderPhone">No. WhatsApp</label>
+          <input id="orderPhone" type="tel" class="input" placeholder="08xxxxxxxxxx" required />
+        </div>
+        <div class="form__row">
+          <label class="label" for="orderEvent">Nama Acara</label>
+          <input id="orderEvent" type="text" class="input" placeholder="Pernikahan Budi & Ani" required />
+        </div>
+        <div class="form__row">
+          <label class="label" for="orderDate">Tanggal Acara</label>
+          <input id="orderDate" type="date" class="input" required />
+        </div>
+        <div class="form__row">
+          <label class="label" for="orderNotes">Catatan Tambahan</label>
+          <textarea id="orderNotes" class="input input--textarea" placeholder="Warna tema, permintaan khusus…"></textarea>
+        </div>
+        <div class="modal__actions">
+          <button type="submit" class="btn btn--primary">📩 Kirim Pesanan</button>
+          <button type="button" class="btn btn--ghost" data-close="modalOrder">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Sukses Pesan -->
+  <div id="modalSuccess" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalSuccessTitle">
+    <div class="modal__box modal__box--center">
+      <div class="success__icon">🎉</div>
+      <h4 id="modalSuccessTitle" class="modal__title">Pesanan Terkirim!</h4>
+      <p id="successMsg" class="success__msg"></p>
+      <button class="btn btn--primary" data-close="modalSuccess">Tutup</button>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
